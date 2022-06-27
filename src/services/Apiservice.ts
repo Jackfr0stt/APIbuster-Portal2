@@ -23,6 +23,19 @@ export default class ApiService {
     }
   }
 
+  async getAPIById(id: number) {
+    const response = await wrapper(
+      axios.get(`${API_URL}/apis/${id}`)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
   async newAPI(body: any) {
     const route = `${API_URL}/apis`;
 
@@ -43,19 +56,6 @@ export default class ApiService {
 
     const response = await wrapper(
       axios.delete(route)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
-  async getAPIById(id: number) {
-    const response = await wrapper(
-      axios.get(`${API_URL}/apis/${id}`)
     );
 
     if (response.error) {
@@ -129,19 +129,6 @@ export default class ApiService {
     }
   }
 
-  async getEndpointById(id: number) {
-    const response = await wrapper(
-      axios.get(`${API_URL}/endpoints/${id}`)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
   async getTestgroups(filter?: any) {
     let route: string = "";
 
@@ -162,11 +149,39 @@ export default class ApiService {
     }
   }
 
-  async newTestGroup(body: any) {
+  async getTestgroupById(id: number) {
+    const response = await wrapper(
+      axios.get(`${API_URL}/testgroups/${id}`)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
+  async newTestgroup(body: any) {
     const route = `${API_URL}/testgroups`;
 
     const response = await wrapper(
       axios.post(route, body)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
+  async delTestgroup(id: number) {
+    const route = `${API_URL}/testgroups/${id}`;
+
+    const response = await wrapper(
+      axios.delete(route)
     );
 
     if (response.error) {
@@ -197,6 +212,19 @@ export default class ApiService {
     }
   }
 
+  async getTestById(id: number) {
+    const response = await wrapper(
+      axios.get(`${API_URL}/tests/${id}`)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
   async newTest(body: any) {
     const route = `${API_URL}/tests`;
 
@@ -212,114 +240,11 @@ export default class ApiService {
     }
   }
 
-  async getTestById(id: number) {
-    const response = await wrapper(
-      axios.get(`${API_URL}/tests/${id}`)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
   async delTest(id: number) {
     const route = `${API_URL}/tests/${id}`;
 
     const response = await wrapper(
       axios.delete(route)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
-  async newFuncTest(body: any) {
-    const route = `${API_URL}/functionals`;
-
-    const response = await wrapper(
-      axios.post(route, body)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
-  async newNonFuncTest(body: any) {
-    const route = `${API_URL}/non-functionals`;
-
-    const response = await wrapper(
-      axios.post(route, body)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
-  async newAcceptanceTest(body: any) {
-    const route = `${API_URL}/acceptances`;
-
-    const response = await wrapper(
-      axios.post(route, body)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
-  async newIntegrationTest(body: any) {
-    const route = `${API_URL}/integrations`;
-
-    const response = await wrapper(
-      axios.post(route, body)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
-  async newUnitTest(body: any) {
-    const route = `${API_URL}/units`;
-
-    const response = await wrapper(
-      axios.post(route, body)
-    );
-
-    if (response.error) {
-      throw response.error;
-    }
-    if (response.data) {
-      return response.data.data;
-    }
-  }
-
-  async newPerformanceTest(body: any) {
-    const route = `${API_URL}/performances`;
-
-    const response = await wrapper(
-      axios.post(route, body)
     );
 
     if (response.error) {

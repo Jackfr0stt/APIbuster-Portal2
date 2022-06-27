@@ -1,24 +1,22 @@
 <template>
-    <main class="API-page">
-        <Title title="APIs" />
+    <main class="testgroups-page">
+        <Title :title="endpoint.method" />
 
-        <!-- API CARDS -->
         <section class="info">
             <!-- <img src="https://codetheweb.blog/assets/img/icon2.png">
             <h1>Learn HTML &mdash; <a href="https://codetheweb.blog/" target="_blank">Code The Web</a></h1> -->
         </section>
 
         <section class="cards-wrapper">
-            <div v-for="api in apis">
+            <div v-for="endpoint in testgroups">
                 <div class="card-grid-space">
-                    <a class="card"
+                    <a class="card-testgroup"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <h1>{{ api.apiname }}</h1>
-                            <p>{{ api.domain }}</p>
+                            <h1>{{ testgroup.testgroupname }}</h1>
                             <div class="tags">
-                                <div class="tag">{{ api.apitype }}</div>
-                                <router-link class="button" :to="`/apis/${api.id}/endpoints`">
+                                <div class="tag">{{ endpoint.endpointtype }}</div>
+                                <router-link class="button" :to="`/testgroups/${testgroup.id}/tests`">
                                     <span class="text">Open</span>
                                 </router-link>
                             </div>
@@ -29,19 +27,21 @@
 
             <div v-if="expanded">
                 <div class="card-grid-space">
-                    <a class="card"
+                    <a class="card-testgroup"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <input type="text" id="apiname" placeholder="API name" class="api-input">
-                            <input type="text" id="domain" placeholder="https://<web_link>" class="domain-input">
+                            <input type="text" id="method" placeholder="Test group name" class="name-input">
                             <div class="tags">
-                                <div class="tag">
-                                    <select id="apitype" class="tag-select">
-                                        <option value="REST">REST</option>
-                                        <option value="RPC" disabled>RPC</option>
+                                <div class="tag" style="background: var(--dark-alt);">
+                                    <select id="endpointtype" class="tag-select">
+                                        <option value="GET">GET</option>
+                                        <option value="POST">POST</option>
+                                        <option value="PATCH">PATCH</option>
+                                        <option value="PUT">PUT</option>
+                                        <option value="DELETE">DELETE</option>
                                     </select>
                                 </div>
-                                <button class="button" @click="newAPI()">
+                                <button class="button" @click="newTestgroup()">
                                     <span class="text-button">Create</span>
                                 </button>
                             </div>
@@ -51,12 +51,11 @@
             </div>
 
             <div class="card-grid-space">
-                <div class="new-card center" @click="ToggleApi()">
+                <div class="new-card center" @click="ToggleTestgroup()">
                     <span class="material-icons" v-if="!expanded">add_circle</span>
                 </div>
             </div>
         </section>
-
     </main>
 </template>
 
@@ -68,37 +67,48 @@ import ApiService from '../services/Apiservice';
 let apiService = new ApiService();
 
 export default {
+    props: ['id'],
     data() {
         return {
-            apis: this.created(),
-            expanded: false,
+            endpoint: this.created(),
+            testgroups: [],
+            expanded: false
         };
     },
     methods: {
         async created() {
-            const res = await wrapper(apiService.getAPIs());
-            this.apis = res.data;
+            const endpoint = await wrapper(apiService.getEndpointById(this.$route.params.id));
+            this.endpoint = endpoint.data;
+            await this.getTestgroups();
         },
-        async ToggleApi() {
+        async getTestgroups() {
+            // testgroups filter
+            const filter = {
+                where: {
+                    apiId: this.endpoint.id
+                }
+            }
+            const testgroups = await wrapper(apiService.getTestgroups(filter));
+            this.testgroups = testgroups.data;
+        },
+        async ToggleTestgroup() {
             this.expanded = !this.expanded;
         },
-        async newAPI() {
-            const API = {
-                apiname: document.getElementById("apiname").value,
-                domain: document.getElementById("domain").value,
-                apitype: document.getElementById("apitype").value
+        async newTestgroup() {
+            const testgroup = {
+                endpointId: this.endpoint.id,
+                testgroupname: document.getElementById("groupname").value
             };
 
-            const res = await wrapper(apiService.newAPI(API));
-            this.apis.push(res.data);
+            const res = await wrapper(apiService.newTestgroup(testgroup));
+            this.testgroups.push(res.data);
             this.expanded = !this.expanded;
         }
     },
     components: { Title }
 }
-
 </script>
 
 <style lang="scss">
-@import "Apis.scss";
+@import "Testgroups.scss";
 </style>

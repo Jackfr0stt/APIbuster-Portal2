@@ -32,12 +32,12 @@ a {
   width: max-content;
 }
 
-.card {
+.card-endpoint {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.5;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
-  height: 10em;
-  width: 20em;
+  height: 15em;
+  width: 25em;
   font-size: 1.5em;
   color: white;
   border-radius: 1em;
@@ -56,11 +56,11 @@ a {
   text-decoration: none;
 }
 
-.card:hover {
+.card-endpoint:hover {
   transform: rotate(0);
 }
 
-.card h1 {
+.card-endpoint h1 {
   // margin: 0;
   // font-size: 1.5em;
   // line-height: 1.2em;
@@ -73,18 +73,18 @@ a {
   opacity: .8;
 }
 
-.card p {
+.card-endpoint p {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
   line-height: 2em;
 }
 
-.card .tags {
+.card-endpoint .tags {
   display: flex;
 }
 
-.card .tags .tag {
+.card-endpoint .tags .tag {
   font-size: 0.75em;
   background: rgba(255,255,255,0.5);
   // background: var(--primary-alt);
@@ -95,38 +95,45 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card .tags .tag .tag-select {
+.card-endpoint .tags .tag .tag-select {
   outline: none;
   border: none;
   color: white;
   font-size: 1em;
   background-color: transparent;
+  
+  option {
+    color: var(--color);
+  }
 }
 
-.card:hover .tags .tag {
+.card-endpoint:hover .tags .tag {
   background: var(--color);
   color: white;
 }
 
-.card .tags .button {
+.card-endpoint .tags .button {
   position: absolute;
   right: 0.75em;
   margin-right: 0.5em;
   transition: all, var(--transition-time);
 }
 
-.card .tags .text-button {
+.text-button {
+  color: white;
   font-size: 1.75em;
+  transition: all, var(--transition-time);
+  transition-timing-function: ease-in-out;
 }
 
-.card .tags .submit {
+.card-endpoint .tags .submit {
   outline: none;
   border: none;
   background-color: transparent;
   color: white;
   transition: all, var(--transition-time);
 
-  &.card:hover {
+  &.card-endpoint:hover {
     color: var(--color);
   }
 }
@@ -140,11 +147,7 @@ input {
   color: white;
 }
 
-textarea {
-  color: white;
-}
-
-.card .api-input {  
+.card-endpoint .endpoint-input {  
   position: absolute;
   top: 0.5em;
   left: 0.5em;
@@ -159,11 +162,51 @@ textarea {
   font-size: 1.25em;
   font-weight: bold;
   
+  transition: all, var(--transition-time);
+}
+
+.card-endpoint .body-input {  
+  position: absolute;
+  top: 5em;
+  left: 1em;
+  height: 3.5em;
+  width: 90%;
+  padding: 0.6em;
+  line-height: 1.2em;
+  opacity: .8;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--light);
+  background-color: transparent;
+  font-size: 0.75em;
+  font-weight: bold;
+  
+  transition: all, var(--transition-time);
+}
+
+.card-endpoint .header-input {  
+  position: absolute;
+  top: 10em;
+  left: 1em;
+  height: 2.5em;
+  width: 90%;
+  padding: 0.6em;
+  line-height: 1.2em;
+  opacity: .8;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--light);
+  background-color: transparent;
+  font-size: 0.75em;
+  font-weight: bold;
+  
   // color: var(--light);
   transition: all, var(--transition-time);
 }
 
-.card .domain-input {
+.card-endpoint .domain-input {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
@@ -179,7 +222,7 @@ textarea {
   transition: all, var(--transition-time);
 }
 
-.card .date {
+.card-endpoint .date {
   position: absolute;
   top: 0;
   right: 0;
@@ -189,7 +232,7 @@ textarea {
   opacity: .8;
 }
 
-.card:before, .card:after {
+.card-endpoint:before, .card-endpoint:after {
   content: '';
   transform: scale(0);
   transform-origin: top left;
@@ -202,27 +245,52 @@ textarea {
   transition-timing-function: ease-in-out;
 }
 
-.card:before {
+.card-endpoint:before {
   background: #ddd;
   width: 250%;
   height: 250%;
 }
 
-.card:after {
+.card-endpoint:after {
   background: white;
   width: 200%;
   height: 200%;
 }
 
-.card:hover {
+.card-endpoint:hover {
   color: var(--color);
 }
 
-.card:hover:before, .card:hover:after {
+.card-endpoint:hover .text-button {
+  color: var(--color);
+}
+
+.card-endpoint:hover {
+  ::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+
+  input {
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+
+  textarea {
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+}
+
+.card-endpoint:hover:before, .card-endpoint:hover:after {
   transform: scale(1);
 }
 
-.card-grid-space .num {
+.card-endpoint-grid-space .num {
   font-size: 3em;
   margin-bottom: 1.2rem;
   margin-left: 1rem;
@@ -277,7 +345,7 @@ textarea {
   .info {
     justify-content: center;
   }
-  .card-grid-space .num {
+  .card-endpoint-grid-space .num {
     margin-left: 0;
     text-align: center;
   }
@@ -287,7 +355,7 @@ textarea {
   .cards-wrapper {
     padding: 4rem 2rem;
   }
-  .card {
+  .card-endpoint {
     max-width: calc(100vw - 4rem);
   }
 }

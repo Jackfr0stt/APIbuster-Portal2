@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import Apis from '../views/Apis.vue';
-import Api from '../views/Api.vue';
-import Endpoint from '../views/Endpoint.vue';
+import Endpoints from '../views/Endpoints.vue';
+import Testgroups from '../views/Testgroups.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -18,18 +18,18 @@ const router = createRouter({
             component: About
         },
         {
-            path: `/apis/:id`,
+            path: `/apis/:id/endpoints`,
             props: true,
-            component: Api
+            component: Endpoints
         },
         {
             path: "/apis",
             component: Apis
         },
         {
-            path: `/endpoints/:id`,
+            path: `/endpoints/:id/testgroups`,
             props: true,
-            component: Endpoint
+            component: Testgroups
         }
     ]
 })

@@ -32,14 +32,12 @@ a {
   width: max-content;
 }
 
-.card {
+.card-testgroup {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.5;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
-  // height: 20em;
-  // width: 15em;
   height: 15em;
-  width: 20em;
+  width: 25em;
   font-size: 1.5em;
   color: white;
   border-radius: 1em;
@@ -58,11 +56,11 @@ a {
   text-decoration: none;
 }
 
-.card:hover {
+.card-testgroup:hover {
   transform: rotate(0);
 }
 
-.card h1 {
+.card-testgroup h1 {
   // margin: 0;
   // font-size: 1.5em;
   // line-height: 1.2em;
@@ -75,18 +73,18 @@ a {
   opacity: .8;
 }
 
-.card p {
+.card-testgroup p {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
   line-height: 2em;
 }
 
-.card .tags {
+.card-testgroup .tags {
   display: flex;
 }
 
-.card .tags .tag {
+.card-testgroup .tags .tag {
   font-size: 0.75em;
   background: rgba(255,255,255,0.5);
   // background: var(--primary-alt);
@@ -97,7 +95,7 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card .tags .tag .tag-select {
+.card-testgroup .tags .tag .tag-select {
   outline: none;
   border: none;
   color: white;
@@ -109,12 +107,12 @@ a {
   }
 }
 
-.card:hover .tags .tag {
+.card-testgroup:hover .tags .tag {
   background: var(--color);
   color: white;
 }
 
-.card .tags .button {
+.card-testgroup .tags .button {
   position: absolute;
   right: 0.75em;
   margin-right: 0.5em;
@@ -122,22 +120,34 @@ a {
 }
 
 .text-button {
+  color: white;
   font-size: 1.75em;
+  transition: all, var(--transition-time);
+  transition-timing-function: ease-in-out;
 }
 
-.card .tags .submit {
+.card-testgroup .tags .submit {
   outline: none;
   border: none;
   background-color: transparent;
   color: white;
   transition: all, var(--transition-time);
 
-  &.card:hover {
+  &.card-testgroup:hover {
     color: var(--color);
   }
 }
 
-.card .endpoint-input {  
+::placeholder {
+  opacity: 0.8;
+  color: white;
+}
+
+input {
+  color: white;
+}
+
+.card-testgroup .name-input {  
   position: absolute;
   top: 0.5em;
   left: 0.5em;
@@ -155,10 +165,11 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card .body-input {  
+.card-testgroup .body-input {  
   position: absolute;
   top: 5em;
   left: 1em;
+  height: 3.5em;
   width: 90%;
   padding: 0.6em;
   line-height: 1.2em;
@@ -174,10 +185,11 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card .header-input {  
+.card-testgroup .header-input {  
   position: absolute;
   top: 10em;
   left: 1em;
+  height: 2.5em;
   width: 90%;
   padding: 0.6em;
   line-height: 1.2em;
@@ -194,7 +206,7 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card .domain-input {
+.card-testgroup .domain-input {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
@@ -210,7 +222,7 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card .date {
+.card-testgroup .date {
   position: absolute;
   top: 0;
   right: 0;
@@ -220,7 +232,7 @@ a {
   opacity: .8;
 }
 
-.card:before, .card:after {
+.card-testgroup:before, .card-testgroup:after {
   content: '';
   transform: scale(0);
   transform-origin: top left;
@@ -233,27 +245,52 @@ a {
   transition-timing-function: ease-in-out;
 }
 
-.card:before {
+.card-testgroup:before {
   background: #ddd;
   width: 250%;
   height: 250%;
 }
 
-.card:after {
+.card-testgroup:after {
   background: white;
   width: 200%;
   height: 200%;
 }
 
-.card:hover {
+.card-testgroup:hover {
   color: var(--color);
 }
 
-.card:hover:before, .card:hover:after {
+.card-testgroup:hover .text-button {
+  color: var(--color);
+}
+
+.card-testgroup:hover {
+  ::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+
+  input {
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+
+  textarea {
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+}
+
+.card-testgroup:hover:before, .card-testgroup:hover:after {
   transform: scale(1);
 }
 
-.card-grid-space .num {
+.card-testgroup-grid-space .num {
   font-size: 3em;
   margin-bottom: 1.2rem;
   margin-left: 1rem;
@@ -288,7 +325,10 @@ a {
 }
 
 .center {
-  margin-left: 40%;
+  display: block;
+  width: 15%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* MEDIA QUERIES */
@@ -305,7 +345,7 @@ a {
   .info {
     justify-content: center;
   }
-  .card-grid-space .num {
+  .card-testgroup-grid-space .num {
     margin-left: 0;
     text-align: center;
   }
@@ -315,7 +355,7 @@ a {
   .cards-wrapper {
     padding: 4rem 2rem;
   }
-  .card {
+  .card-testgroup {
     max-width: calc(100vw - 4rem);
   }
 }

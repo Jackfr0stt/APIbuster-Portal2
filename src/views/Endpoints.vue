@@ -1,8 +1,8 @@
 <template>
-	<main class="api-page">
-		<Title :title="api.apiname" />
-		
-        
+    <main class="endpoint-page">
+        <Title :title="api.apiname" />
+
+
         <!-- API CARDS -->
         <section class="info">
             <!-- <img src="https://codetheweb.blog/assets/img/icon2.png">
@@ -12,13 +12,25 @@
         <section class="cards-wrapper">
             <div v-for="endpoint in endpoints">
                 <div class="card-grid-space">
-                    <a class="card" style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
+                    <a class="card-endpoint"
+                        style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <h1>{{endpoint.method}}</h1>
-                            <p>{{endpoint.route}}</p>
+                            <h1>{{ endpoint.method }}</h1>
+                            <div class="body" v-if="endpoint.body != ''">
+                                <p>Body: </p>
+                                <p>{{ endpoint.body }}</p>
+                            </div>
+                            <div class="header" v-if="endpoint.header != ''">
+                                <p>Header: </p>
+                                <p>{{ endpoint.header }}</p>
+                            </div>
+                            <div class="route">
+                                <p>Route: {{ endpoint.route }}</p>
+                                <!-- <p></p> -->
+                            </div>
                             <div class="tags">
-                                <div class="tag">{{endpoint.endpointtype}}</div>
-                                <router-link class="button" :to="`/endpoints/${endpoint.id}`">
+                                <div class="tag">{{ endpoint.endpointtype }}</div>
+                                <router-link class="button" :to="`/endpoints/${endpoint.id}/testgroups`">
                                     <span class="text">Open</span>
                                 </router-link>
                             </div>
@@ -29,7 +41,8 @@
 
             <div v-if="expanded">
                 <div class="card-grid-space">
-                    <a class="card" >
+                    <a class="card-endpoint"
+                        style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
                             <input type="text" id="method" placeholder="Endpoint name" class="endpoint-input">
                             <input type="text" id="route" placeholder="/<endpoint_name>" class="domain-input">
@@ -60,7 +73,7 @@
                 </div>
             </div>
         </section>
-	</main>
+    </main>
 </template>
 
 <script>
@@ -89,7 +102,7 @@ export default {
             // endpoints filter
             const filter = {
                 where: {
-                    apiid: this.api.id
+                    apiId: this.api.id
                 }
             }
             const endpoints = await wrapper(apiService.getEndpoints(filter));
@@ -103,9 +116,9 @@ export default {
                 method: document.getElementById("method").value,
                 route: document.getElementById("route").value,
                 endpointtype: document.getElementById("endpointtype").value,
-                apiid: this.api.id,
-                body: document.getElementById("body").value || null,
-                header: document.getElementById("header").value || null,
+                apiId: this.api.id,
+                body: document.getElementById("body").value || "",
+                header: document.getElementById("header").value || "",
             };
 
             const res = await wrapper(apiService.newEndpoint(endpoint));
@@ -125,5 +138,5 @@ export default {
 </style> -->
 
 <style lang="scss">
-@import "Api.scss";
+@import "Endpoints.scss";
 </style>
