@@ -133,7 +133,7 @@ export default class ApiService {
     let route: string = "";
 
     if (filter) {
-      route = `${API_URL}/testgroups?filter=${encodeURI(filter)}`;
+      route = `${API_URL}/testgroups?where=${encodeURI(JSON.stringify(filter))}`;
     } else {
       route = `${API_URL}/testgroups`;
     }
@@ -196,7 +196,7 @@ export default class ApiService {
     let route: string = "";
 
     if (filter) {
-      route = `${API_URL}/tests?filter=${encodeURI(filter)}`;
+      route = `${API_URL}/tests?where=${encodeURI(JSON.stringify(filter))}`;
     } else {
       route = `${API_URL}/tests`;
     }

@@ -20,11 +20,11 @@ a {
   color: inherit;
 }
 
-.cards-wrapper {
+.test-cards-wrapper {
   display: grid;
   justify-content: center;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 4rem;
   padding: 4rem;
   margin: 0 auto;
@@ -32,12 +32,12 @@ a {
   width: max-content;
 }
 
-.card-testgroup {
+.card-test {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.5;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
   height: 10em;
-  width: 20em;
+  width: 75em;
   font-size: 1.5em;
   color: white;
   border-radius: 1em;
@@ -56,11 +56,11 @@ a {
   text-decoration: none;
 }
 
-.card-testgroup:hover {
+.card-test:hover {
   transform: rotate(0);
 }
 
-.card-testgroup h1 {
+.card-test h1 {
   // margin: 0;
   // font-size: 1.5em;
   // line-height: 1.2em;
@@ -73,18 +73,18 @@ a {
   opacity: .8;
 }
 
-.card-testgroup p {
+.card-test p {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
   line-height: 2em;
 }
 
-.card-testgroup .tags {
+.card-test .tags {
   display: flex;
 }
 
-.card-testgroup .tags .tag {
+.card-test .tags .tag {
   font-size: 0.75em;
   background: rgba(255,255,255,0.5);
   // background: var(--primary-alt);
@@ -95,45 +95,49 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card-testgroup .tags .tag .tag-select {
+.card-test .tags .tag .tag-select {
   outline: none;
   border: none;
   color: white;
   font-size: 1em;
   background-color: transparent;
   
+  optgroup {
+    color: var(--color);
+  }
+
   option {
     color: var(--color);
   }
 }
 
-.card-testgroup:hover .tags .tag {
+.card-test:hover .tags .tag {
   background: var(--color);
   color: white;
 }
 
-.card-testgroup .tags .button {
+.card-test .tags .button {
   position: absolute;
   right: 0.75em;
   margin-right: 0.5em;
   transition: all, var(--transition-time);
 }
 
-.text-button {
+.button .material-icons {
   color: white;
-  font-size: 1.75em;
+  font-size: 3em;
   transition: all, var(--transition-time);
   transition-timing-function: ease-in-out;
 }
 
-.card-testgroup .tags .submit {
+.card-test .tags .submit {
   outline: none;
   border: none;
   background-color: transparent;
   color: white;
   transition: all, var(--transition-time);
 
-  &.card-testgroup:hover {
+  &.card-test:hover {
     color: var(--color);
   }
 }
@@ -147,7 +151,7 @@ input {
   color: white;
 }
 
-.card-testgroup .name-input {  
+.card-test .name-input {  
   position: absolute;
   top: 0.5em;
   left: 0.5em;
@@ -165,7 +169,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-testgroup .body-input {  
+.card-test .body-input {  
   position: absolute;
   top: 5em;
   left: 1em;
@@ -185,7 +189,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-testgroup .header-input {  
+.card-test .header-input {  
   position: absolute;
   top: 10em;
   left: 1em;
@@ -206,7 +210,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-testgroup .domain-input {
+.card-test .domain-input {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
@@ -222,7 +226,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-testgroup .date {
+.card-test .date {
   position: absolute;
   top: 0;
   right: 0;
@@ -232,7 +236,7 @@ input {
   opacity: .8;
 }
 
-.card-testgroup:before, .card-testgroup:after {
+.card-test:before, .card-test:after {
   content: '';
   transform: scale(0);
   transform-origin: top left;
@@ -245,27 +249,27 @@ input {
   transition-timing-function: ease-in-out;
 }
 
-.card-testgroup:before {
+.card-test:before {
   background: #ddd;
   width: 250%;
   height: 250%;
 }
 
-.card-testgroup:after {
+.card-test:after {
   background: white;
   width: 200%;
   height: 200%;
 }
 
-.card-testgroup:hover {
+.card-test:hover {
   color: var(--color);
 }
 
-.card-testgroup:hover .text-button {
+.card-test:hover .material-icons {
   color: var(--color);
 }
 
-.card-testgroup:hover {
+.card-test:hover {
   ::placeholder {
     opacity: 0.8;
     color: var(--color);
@@ -286,11 +290,11 @@ input {
   }
 }
 
-.card-testgroup:hover:before, .card-testgroup:hover:after {
+.card-test:hover:before, .card-test:hover:after {
   transform: scale(1);
 }
 
-.card-testgroup-grid-space .num {
+.card-test-grid-space .num {
   font-size: 3em;
   margin-bottom: 1.2rem;
   margin-left: 1rem;
@@ -345,7 +349,7 @@ input {
   .info {
     justify-content: center;
   }
-  .card-testgroup-grid-space .num {
+  .card-test-grid-space .num {
     margin-left: 0;
     text-align: center;
   }
@@ -355,7 +359,7 @@ input {
   .cards-wrapper {
     padding: 4rem 2rem;
   }
-  .card-testgroup {
+  .card-test {
     max-width: calc(100vw - 4rem);
   }
 }

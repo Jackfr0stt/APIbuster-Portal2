@@ -8,14 +8,13 @@
         </section>
 
         <section class="cards-wrapper">
-            <div v-for="endpoint in testgroups">
+            <div v-for="testgroup in testgroups">
                 <div class="card-grid-space">
                     <a class="card-testgroup"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
                             <h1>{{ testgroup.testgroupname }}</h1>
-                            <div class="tags">
-                                <div class="tag">{{ endpoint.endpointtype }}</div>
+                            <div class="tags" style="margin-bottom: 1em;">
                                 <router-link class="button" :to="`/testgroups/${testgroup.id}/tests`">
                                     <span class="text">Open</span>
                                 </router-link>
@@ -30,17 +29,8 @@
                     <a class="card-testgroup"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <input type="text" id="method" placeholder="Test group name" class="name-input">
-                            <div class="tags">
-                                <div class="tag" style="background: var(--dark-alt);">
-                                    <select id="endpointtype" class="tag-select">
-                                        <option value="GET">GET</option>
-                                        <option value="POST">POST</option>
-                                        <option value="PATCH">PATCH</option>
-                                        <option value="PUT">PUT</option>
-                                        <option value="DELETE">DELETE</option>
-                                    </select>
-                                </div>
+                            <input type="text" id="groupname" placeholder="Test group name" class="name-input">
+                            <div class="tags" style="margin-bottom: 1em;">
                                 <button class="button" @click="newTestgroup()">
                                     <span class="text-button">Create</span>
                                 </button>
@@ -85,7 +75,7 @@ export default {
             // testgroups filter
             const filter = {
                 where: {
-                    apiId: this.endpoint.id
+                    endpointId: this.endpoint.id
                 }
             }
             const testgroups = await wrapper(apiService.getTestgroups(filter));
@@ -102,6 +92,7 @@ export default {
 
             const res = await wrapper(apiService.newTestgroup(testgroup));
             this.testgroups.push(res.data);
+            console.log(this.testgroups);
             this.expanded = !this.expanded;
         }
     },
