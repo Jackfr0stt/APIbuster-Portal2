@@ -13,22 +13,22 @@
           <a class="card-test"
             style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
             <div>
-              <h1>{{ test.testname }}</h1>
+              <h1>{{ test.testName }}</h1>
               <!-- <div class="tags" style="margin-bottom: 1em;">
                 <router-link class="button" :to="`/testgroups/${test.id}/tests`">
                   <span class="text">Open</span>
                 </router-link>
               </div> -->
-              <div class="body" v-if="test.testbody != ''">
+              <div class="body" v-if="test.testBody != ''">
                 <p>Body: </p>
                 <p>{{ test.testbody }}</p>
               </div>
-              <div class="expect" v-if="test.testexpect != ''">
+              <div class="expect" v-if="test.testExpect != ''">
                 <p>Expect: </p>
-                <p>{{ test.testexpect }}</p>
+                <p>{{ test.testExpect }}</p>
               </div>
               <div class="tags">
-                <div class="tag">{{ test.testtype }}</div>
+                <div class="tag">{{ test.testType }}</div>
                 <button class="button" @click="runTest(test.id)">
                   <span class="material-icons">play_arrow</span>
                 </button>
@@ -97,19 +97,17 @@ export default {
     async created() {
       const testgroup = await wrapper(apiService.getTestgroupById(this.$route.params.id));
       this.testgroup = testgroup.data;
-      console.log(this.testgroup);
       await this.getTests();
     },
     async getTests() {
       // tests filter
-      // const filter = {
-      //   where: {
-      //     testGroupId: this.testgroup.id
-      //   }
-      // }
+      const filter = {
+        where: {
+          test_groupId: this.testgroup.id
+        }
+      }
 
-      const tests = await wrapper(apiService.getTests());
-      console.log(tests);
+      const tests = await wrapper(apiService.getTests(filter));
       this.tests = tests.data;
     },
     async ToggleTest() {
@@ -117,8 +115,8 @@ export default {
     },
     async newTest() {
       const test = {
-        testGroupId: this.testgroup.id,
-        testName: document.getElementById("testName").value,
+        test_groupId: this.testgroup.id,
+        testName: document.getElementById("testname").value,
         testType: document.getElementById("type").value,
         testBody: document.getElementById("body").value || "",
         testExpect: document.getElementById("expect").value || "",
@@ -137,7 +135,6 @@ export default {
     },
     async runTest(testid) {
       const res = await wrapper(apiService.runTest(testid));
-      console.log(res.data);
     }
   },
   components: { Title }

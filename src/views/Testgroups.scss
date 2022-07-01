@@ -32,6 +32,26 @@ a {
   width: max-content;
 }
 
+.modal-wrapper {
+  font-family: 'Heebo';
+  height: 80%;
+  width: 80%;
+  font-size: 1.5em;
+  // color: white;
+  border-radius: 1em;
+  padding: 1em;
+  // display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5em -1em black;
+  transition: all, var(--transition-time);
+  position: relative;
+  overflow: hidden;
+  border: 10px solid var(--dark-alt);
+  text-decoration: none;
+}
+
 .card-testgroup {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.5;
@@ -58,6 +78,41 @@ a {
 
 .card-testgroup:hover {
   transform: rotate(0);
+}
+
+.card-testgroup .visibility {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  margin: none;
+  
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.card-testgroup .play {
+  position: absolute;
+  top: 1.75em;
+  right: 0.75em;
+  font-size: 1.25em;
+  margin: none;
+  
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.card-testgroup .delete {
+  position: absolute;
+  top: 3em;
+  right: 0.75em;
+  font-size: 1.25em;
+  margin: none;
+  
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .card-testgroup h1 {
