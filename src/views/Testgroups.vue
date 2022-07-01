@@ -115,6 +115,10 @@ export default {
             this.expanded = !this.expanded;
         },
         async runTestgroup(id) {
+            const res = await wrapper(apiService.runTestgroup(id));
+            if (res.error) {
+                throw res.error;
+            }
             this.expandCard(id);
         },
         async expandCard(id) {

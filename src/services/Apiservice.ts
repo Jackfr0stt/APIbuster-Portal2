@@ -149,6 +149,21 @@ export default class ApiService {
     }
   }
 
+  async runTestgroup(testid: number) {
+    let route = `${API_URL}/test-groups/${testid}/run`;
+
+    const response = await wrapper(
+      axios.get(route)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
   async getTestgroupById(id: number) {
     const response = await wrapper(
       axios.get(`${API_URL}/test-groups/${id}`)
