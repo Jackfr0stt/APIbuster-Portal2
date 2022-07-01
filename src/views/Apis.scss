@@ -134,6 +134,7 @@ a {
 ::placeholder {
   opacity: 0.8;
   color: white;
+  transition: all, var(--transition-time);
 }
 
 input {
@@ -216,6 +217,31 @@ textarea {
 
 .card:hover {
   color: var(--color);
+}
+
+.card:hover .text-button {
+  color: var(--color);
+}
+
+.card:hover {
+  ::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+
+  input {
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
+
+  textarea {
+    color: var(--color);
+    transition: all, var(--transition-time);
+    transition-timing-function: ease-in-out;
+  }
 }
 
 .card:hover:before, .card:hover:after {

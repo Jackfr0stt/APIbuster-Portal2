@@ -32,7 +32,7 @@ a {
   width: max-content;
 }
 
-.card-endpoint {
+.card-method {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.5;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
@@ -56,11 +56,11 @@ a {
   text-decoration: none;
 }
 
-.card-endpoint:hover {
+.card-method:hover {
   transform: rotate(0);
 }
 
-.card-endpoint h1 {
+.card-method h1 {
   // margin: 0;
   // font-size: 1.5em;
   // line-height: 1.2em;
@@ -73,18 +73,18 @@ a {
   opacity: .8;
 }
 
-.card-endpoint p {
+.card-method p {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
   line-height: 2em;
 }
 
-.card-endpoint .tags {
+.card-method .tags {
   display: flex;
 }
 
-.card-endpoint .tags .tag {
+.card-method .tags .tag {
   font-size: 0.75em;
   background: rgba(255,255,255,0.5);
   // background: var(--primary-alt);
@@ -95,7 +95,7 @@ a {
   transition: all, var(--transition-time);
 }
 
-.card-endpoint .tags .tag .tag-select {
+.card-method .tags .tag .tag-select {
   outline: none;
   border: none;
   color: white;
@@ -107,12 +107,12 @@ a {
   }
 }
 
-.card-endpoint:hover .tags .tag {
+.card-method:hover .tags .tag {
   background: var(--color);
   color: white;
 }
 
-.card-endpoint .tags .button {
+.card-method .tags .button {
   position: absolute;
   right: 0.75em;
   margin-right: 0.5em;
@@ -126,14 +126,14 @@ a {
   transition-timing-function: ease-in-out;
 }
 
-.card-endpoint .tags .submit {
+.card-method .tags .submit {
   outline: none;
   border: none;
   background-color: transparent;
   color: white;
   transition: all, var(--transition-time);
 
-  &.card-endpoint:hover {
+  &.card-method:hover {
     color: var(--color);
   }
 }
@@ -147,7 +147,7 @@ input {
   color: white;
 }
 
-.card-endpoint .endpoint-input {  
+.card-method .method-input {  
   position: absolute;
   top: 0.5em;
   left: 0.5em;
@@ -165,7 +165,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-endpoint .body-input {  
+.card-method .methodBody-input {  
   position: absolute;
   top: 5em;
   left: 1em;
@@ -185,7 +185,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-endpoint .header-input {  
+.card-method .methodHeader-input {  
   position: absolute;
   top: 10em;
   left: 1em;
@@ -206,7 +206,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-endpoint .domain-input {
+.card-method .domain-input {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
@@ -222,7 +222,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-endpoint .date {
+.card-method .date {
   position: absolute;
   top: 0;
   right: 0;
@@ -232,7 +232,7 @@ input {
   opacity: .8;
 }
 
-.card-endpoint:before, .card-endpoint:after {
+.card-method:before, .card-method:after {
   content: '';
   transform: scale(0);
   transform-origin: top left;
@@ -245,27 +245,27 @@ input {
   transition-timing-function: ease-in-out;
 }
 
-.card-endpoint:before {
+.card-method:before {
   background: #ddd;
   width: 250%;
   height: 250%;
 }
 
-.card-endpoint:after {
+.card-method:after {
   background: white;
   width: 200%;
   height: 200%;
 }
 
-.card-endpoint:hover {
+.card-method:hover {
   color: var(--color);
 }
 
-.card-endpoint:hover .text-button {
+.card-method:hover .text-button {
   color: var(--color);
 }
 
-.card-endpoint:hover {
+.card-method:hover {
   ::placeholder {
     opacity: 0.8;
     color: var(--color);
@@ -286,11 +286,11 @@ input {
   }
 }
 
-.card-endpoint:hover:before, .card-endpoint:hover:after {
+.card-method:hover:before, .card-method:hover:after {
   transform: scale(1);
 }
 
-.card-endpoint-grid-space .num {
+.card-method-grid-space .num {
   font-size: 3em;
   margin-bottom: 1.2rem;
   margin-left: 1rem;
@@ -345,7 +345,7 @@ input {
   .info {
     justify-content: center;
   }
-  .card-endpoint-grid-space .num {
+  .card-method-grid-space .num {
     margin-left: 0;
     text-align: center;
   }
@@ -355,7 +355,7 @@ input {
   .cards-wrapper {
     padding: 4rem 2rem;
   }
-  .card-endpoint {
+  .card-method {
     max-width: calc(100vw - 4rem);
   }
 }

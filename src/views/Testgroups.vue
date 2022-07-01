@@ -1,6 +1,6 @@
 <template>
     <main class="testgroups-page">
-        <Title :title="endpoint.method" />
+        <Title :title="method.methodName" />
 
         <section class="info">
             <!-- <img src="https://codetheweb.blog/assets/img/icon2.png">
@@ -13,7 +13,7 @@
                     <a class="card-testgroup"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <h1>{{ testgroup.testgroupname }}</h1>
+                            <h1>{{ testgroup.testGroupName }}</h1>
                             <div class="tags" style="margin-bottom: 1em;">
                                 <router-link class="button" :to="`/testgroups/${testgroup.id}/tests`">
                                     <span class="text">Open</span>
@@ -29,7 +29,7 @@
                     <a class="card-testgroup"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <input type="text" id="groupname" placeholder="Test group name" class="name-input">
+                            <input type="text" id="groupName" placeholder="Test group name" class="name-input">
                             <div class="tags" style="margin-bottom: 1em;">
                                 <button class="button" @click="newTestgroup()">
                                     <span class="text-button">Create</span>
@@ -60,22 +60,22 @@ export default {
     props: ['id'],
     data() {
         return {
-            endpoint: this.created(),
+            method: this.created(),
             testgroups: [],
             expanded: false
         };
     },
     methods: {
         async created() {
-            const endpoint = await wrapper(apiService.getEndpointById(this.$route.params.id));
-            this.endpoint = endpoint.data;
+            const method = await wrapper(apiService.getMethodById(this.$route.params.id));
+            this.method = method.data;
             await this.getTestgroups();
         },
         async getTestgroups() {
             // testgroups filter
             const filter = {
                 where: {
-                    endpointId: this.endpoint.id
+                    methodId: this.method.id
                 }
             }
             const testgroups = await wrapper(apiService.getTestgroups(filter));
@@ -86,8 +86,8 @@ export default {
         },
         async newTestgroup() {
             const testgroup = {
-                endpointId: this.endpoint.id,
-                testgroupname: document.getElementById("groupname").value
+                methodId: this.method.id,
+                testGroupName: document.getElementById("groupName").value
             };
 
             const res = await wrapper(apiService.newTestgroup(testgroup));

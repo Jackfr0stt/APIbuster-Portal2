@@ -1,16 +1,17 @@
-
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+    createRouter,
+    createWebHistory
+} from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import Apis from '../views/Apis.vue';
-import Endpoints from '../views/Endpoints.vue';
+import Methods from '../views/Methods.vue';
 import Testgroups from '../views/Testgroups.vue';
 import Tests from '../views/Tests.vue';
 
 const router = createRouter({
     history: createWebHistory(),
-    routes: [
-        {
+    routes: [{
             path: "/",
             component: Home
         },
@@ -23,12 +24,12 @@ const router = createRouter({
             component: Apis
         },
         {
-            path: `/apis/:id/endpoints`,
+            path: `/apis/:id/methods`,
             props: true,
-            component: Endpoints
+            component: Methods
         },
         {
-            path: `/endpoints/:id/testgroups`,
+            path: `/methods/:id/testgroups`,
             props: true,
             component: Testgroups
         },

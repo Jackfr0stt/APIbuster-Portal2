@@ -36,7 +36,7 @@ a {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.5;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
-  height: 10em;
+  height: 15em;
   width: 75em;
   font-size: 1.5em;
   color: white;
@@ -54,6 +54,10 @@ a {
   // border: 10px solid #ccc;
   border: 10px solid var(--dark-alt);
   text-decoration: none;
+}
+
+.card-test:hover .text-button {
+  color: var(--color);
 }
 
 .card-test:hover {
@@ -130,6 +134,16 @@ a {
   transition-timing-function: ease-in-out;
 }
 
+.card-test .body {
+  margin-bottom: 1em;
+  transition: all, var(--transition-time);
+}
+
+.card-test .expect {
+  margin-bottom: 1em;
+  transition: all, var(--transition-time);
+}
+
 .card-test .tags .submit {
   outline: none;
   border: none;
@@ -189,7 +203,7 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-test .header-input {  
+.card-test .expect-input {  
   position: absolute;
   top: 10em;
   left: 1em;

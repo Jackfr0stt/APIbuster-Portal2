@@ -66,13 +66,13 @@ export default class ApiService {
     }
   }
 
-  async getEndpoints(filter?: any) {
+  async getMethods(filter?: any) {
     let route: string = "";
 
     if (filter) {
-      route = `${API_URL}/endpoints?where=${encodeURI(JSON.stringify(filter))}`;
+      route = `${API_URL}/methods?where=${encodeURI(JSON.stringify(filter))}`;
     } else {
-      route = `${API_URL}/endpoints`;
+      route = `${API_URL}/methods`;
     }
     const response = await wrapper(
       axios.get(route)
@@ -86,9 +86,9 @@ export default class ApiService {
     }
   }
 
-  async getEndpointById(id: number) {
+  async getMethodById(id: number) {
     const response = await wrapper(
-      axios.get(`${API_URL}/endpoints/${id}`)
+      axios.get(`${API_URL}/methods/${id}`)
     );
 
     if (response.error) {
@@ -99,8 +99,8 @@ export default class ApiService {
     }
   }
 
-  async newEndpoint(body: any) {
-    const route = `${API_URL}/endpoints`;
+  async newMethod(body: any) {
+    const route = `${API_URL}/methods`;
 
     const response = await wrapper(
       axios.post(route, body)
@@ -114,8 +114,8 @@ export default class ApiService {
     }
   }
 
-  async delEndpoint(id: number) {
-    const route = `${API_URL}/endpoints/${id}`;
+  async delMethod(id: number) {
+    const route = `${API_URL}/methods/${id}`;
 
     const response = await wrapper(
       axios.delete(route)
@@ -133,9 +133,9 @@ export default class ApiService {
     let route: string = "";
 
     if (filter) {
-      route = `${API_URL}/testgroups?where=${encodeURI(JSON.stringify(filter))}`;
+      route = `${API_URL}/test-groups?where=${encodeURI(JSON.stringify(filter))}`;
     } else {
-      route = `${API_URL}/testgroups`;
+      route = `${API_URL}/test-groups`;
     }
     const response = await wrapper(
       axios.get(route)
@@ -151,7 +151,7 @@ export default class ApiService {
 
   async getTestgroupById(id: number) {
     const response = await wrapper(
-      axios.get(`${API_URL}/testgroups/${id}`)
+      axios.get(`${API_URL}/test-groups/${id}`)
     );
 
     if (response.error) {
@@ -163,7 +163,7 @@ export default class ApiService {
   }
 
   async newTestgroup(body: any) {
-    const route = `${API_URL}/testgroups`;
+    const route = `${API_URL}/test-groups`;
 
     const response = await wrapper(
       axios.post(route, body)
@@ -178,7 +178,7 @@ export default class ApiService {
   }
 
   async delTestgroup(id: number) {
-    const route = `${API_URL}/testgroups/${id}`;
+    const route = `${API_URL}/test-groups/${id}`;
 
     const response = await wrapper(
       axios.delete(route)
@@ -200,6 +200,21 @@ export default class ApiService {
     } else {
       route = `${API_URL}/tests`;
     }
+    const response = await wrapper(
+      axios.get(route)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
+  async runTest(testid: number) {
+    let route = `${API_URL}/tests/${testid}/run`;
+
     const response = await wrapper(
       axios.get(route)
     );

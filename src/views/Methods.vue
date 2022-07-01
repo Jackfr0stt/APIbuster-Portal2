@@ -1,5 +1,5 @@
 <template>
-    <main class="endpoint-page">
+    <main class="method-page">
         <Title :title="api.apiname" />
 
 
@@ -10,27 +10,26 @@
         </section>
 
         <section class="cards-wrapper">
-            <div v-for="endpoint in endpoints">
+            <div v-for="method in methods">
                 <div class="card-grid-space">
-                    <a class="card-endpoint"
+                    <a class="card-method"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <h1>{{ endpoint.method }}</h1>
-                            <div class="body" v-if="endpoint.body != ''">
+                            <h1>{{ method.methodName }}</h1>
+                            <div class="methodBody" v-if="method.methodBody != ''">
                                 <p>Body: </p>
-                                <p>{{ endpoint.body }}</p>
+                                <p>{{ method.methodBody }}</p>
                             </div>
-                            <div class="header" v-if="endpoint.header != ''">
+                            <div class="methodHeader" v-if="method.methodHeader != ''">
                                 <p>Header: </p>
-                                <p>{{ endpoint.header }}</p>
+                                <p>{{ method.methodHeader }}</p>
                             </div>
-                            <div class="route">
-                                <p>Route: {{ endpoint.route }}</p>
-                                <!-- <p></p> -->
+                            <div class="methodRoute">
+                                <p>Route: {{ method.methodRoute }}</p>
                             </div>
                             <div class="tags">
-                                <div class="tag">{{ endpoint.endpointtype }}</div>
-                                <router-link class="button" :to="`/endpoints/${endpoint.id}/testgroups`">
+                                <div class="tag">{{ method.methodType }}</div>
+                                <router-link class="button" :to="`/methods/${method.id}/testgroups`">
                                     <span class="text">Open</span>
                                 </router-link>
                             </div>
@@ -41,14 +40,14 @@
 
             <div v-if="expanded">
                 <div class="card-grid-space">
-                    <a class="card-endpoint"
+                    <a class="card-method"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <input type="text" id="method" placeholder="Endpoint name" class="endpoint-input">
-                            <input type="text" id="route" placeholder="/<endpoint_name>" class="domain-input">
+                            <input type="text" id="methodName" placeholder="Method name" class="method-input">
+                            <input type="text" id="methodRoute" placeholder="/<method_route>" class="domain-input">
                             <div class="tags">
                                 <div class="tag" style="background: var(--dark-alt);">
-                                    <select id="endpointtype" class="tag-select">
+                                    <select id="methodType" class="tag-select">
                                         <option value="GET">GET</option>
                                         <option value="POST">POST</option>
                                         <option value="PATCH">PATCH</option>
@@ -56,19 +55,21 @@
                                         <option value="DELETE">DELETE</option>
                                     </select>
                                 </div>
-                                <button class="button" @click="newEndpoint()">
+                                <button class="button" @click="newMethod()">
                                     <span class="text-button">Create</span>
                                 </button>
                             </div>
-                            <textarea type="text" id="body" placeholder="Request body" class="body-input" />
-                            <textarea type="text" id="header" placeholder="Request header" class="header-input" />
+                            <textarea type="text" id="methodBody" placeholder="Request methodBody"
+                                class="methodBody-input" />
+                            <textarea type="text" id="methodHeader" placeholder="Request methodHeader"
+                                class="methodHeader-input" />
                         </div>
                     </a>
                 </div>
             </div>
 
             <div class="card-grid-space">
-                <div class="new-card center" @click="ToggleEndpoint()">
+                <div class="new-card center" @click="ToggleMethod()">
                     <span class="material-icons" v-if="!expanded">add_circle</span>
                 </div>
             </div>
@@ -88,7 +89,7 @@ export default {
     data() {
         return {
             api: this.created(),
-            endpoints: [],
+            methods: [],
             expanded: false
         };
     },
@@ -96,33 +97,33 @@ export default {
         async created() {
             const api = await wrapper(apiService.getAPIById(this.$route.params.id));
             this.api = api.data;
-            await this.getEndpoints();
+            await this.getMethods();
         },
-        async getEndpoints() {
-            // endpoints filter
+        async getMethods() {
+            // methods filter
             const filter = {
                 where: {
                     apiId: this.api.id
                 }
             }
-            const endpoints = await wrapper(apiService.getEndpoints(filter));
-            this.endpoints = endpoints.data;
+            const methods = await wrapper(apiService.getMethods(filter));
+            this.methods = methods.data;
         },
-        async ToggleEndpoint() {
+        async ToggleMethod() {
             this.expanded = !this.expanded;
         },
-        async newEndpoint() {
-            const endpoint = {
-                method: document.getElementById("method").value,
-                route: document.getElementById("route").value,
-                endpointtype: document.getElementById("endpointtype").value,
+        async newMethod() {
+            const method = {
+                methodName: document.getElementById("methodName").value,
+                methodRoute: document.getElementById("methodRoute").value,
+                methodType: document.getElementById("methodType").value,
                 apiId: this.api.id,
-                body: document.getElementById("body").value || "",
-                header: document.getElementById("header").value || "",
+                methodBody: document.getElementById("methodBody").value || "",
+                methodHeader: document.getElementById("methodHeader").value || "",
             };
 
-            const res = await wrapper(apiService.newEndpoint(endpoint));
-            this.endpoints.push(res.data);
+            const res = await wrapper(apiService.newMethod(method));
+            this.methods.push(res.data);
             this.expanded = !this.expanded;
         }
     },
@@ -138,5 +139,5 @@ export default {
 </style> -->
 
 <style lang="scss">
-@import "Endpoints.scss";
+@import "Methods.scss";
 </style>

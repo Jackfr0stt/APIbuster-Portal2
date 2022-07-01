@@ -19,9 +19,17 @@
                   <span class="text">Open</span>
                 </router-link>
               </div> -->
+              <div class="body" v-if="test.testbody != ''">
+                <p>Body: </p>
+                <p>{{ test.testbody }}</p>
+              </div>
+              <div class="expect" v-if="test.testexpect != ''">
+                <p>Expect: </p>
+                <p>{{ test.testexpect }}</p>
+              </div>
               <div class="tags">
-                <div class="tag">{{ test.discriminator }}</div>
-                <button class="button" @click="runTest()">
+                <div class="tag">{{ test.testtype }}</div>
+                <button class="button" @click="runTest(test.id)">
                   <span class="material-icons">play_arrow</span>
                 </button>
               </div>
@@ -52,6 +60,8 @@
                 <button class="button" @click="newTest()">
                   <span class="text-button">Create</span>
                 </button>
+                <textarea type="text" id="body" placeholder="Test body" class="body-input" />
+                <textarea type="text" id="expect" placeholder="Test expect" class="expect-input" />
               </div>
             </div>
           </a>
@@ -87,17 +97,19 @@ export default {
     async created() {
       const testgroup = await wrapper(apiService.getTestgroupById(this.$route.params.id));
       this.testgroup = testgroup.data;
+      console.log(this.testgroup);
       await this.getTests();
     },
     async getTests() {
       // tests filter
-      const filter = {
-        where: {
-          testgroupId: this.testgroup.id
-        }
-      }
+      // const filter = {
+      //   where: {
+      //     testGroupId: this.testgroup.id
+      //   }
+      // }
 
-      const tests = await wrapper(apiService.getTests(filter));
+      const tests = await wrapper(apiService.getTests());
+      console.log(tests);
       this.tests = tests.data;
     },
     async ToggleTest() {
@@ -105,14 +117,27 @@ export default {
     },
     async newTest() {
       const test = {
-        testgroupId: this.testgroup.id,
-        testname: document.getElementById("testname").value,
-        discriminator: document.getElementById("type").value
+        testGroupId: this.testgroup.id,
+        testName: document.getElementById("testName").value,
+        testType: document.getElementById("type").value,
+        testBody: document.getElementById("body").value || "",
+        testExpect: document.getElementById("expect").value || "",
+        discriminator: ''
       };
+
+      if (test.testType == 'Performance') {
+        test.discriminator = 'Non-functional';
+      } else {
+        test.discriminator = 'Functional';
+      }
 
       const res = await wrapper(apiService.newTest(test));
       this.tests.push(res.data);
       this.expanded = !this.expanded;
+    },
+    async runTest(testid) {
+      const res = await wrapper(apiService.runTest(testid));
+      console.log(res.data);
     }
   },
   components: { Title }

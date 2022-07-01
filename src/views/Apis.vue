@@ -14,11 +14,11 @@
                     <a class="card"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <h1>{{ api.apiname }}</h1>
-                            <p>{{ api.domain }}</p>
+                            <h1>{{ api.apiName }}</h1>
+                            <p>{{ api.apiDomain }}</p>
                             <div class="tags">
-                                <div class="tag">{{ api.apitype }}</div>
-                                <router-link class="button" :to="`/apis/${api.id}/endpoints`">
+                                <div class="tag">{{ api.apiType }}</div>
+                                <router-link class="button" :to="`/apis/${api.id}/methods`">
                                     <span class="text">Open</span>
                                 </router-link>
                             </div>
@@ -32,11 +32,11 @@
                     <a class="card"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
-                            <input type="text" id="apiname" placeholder="API name" class="api-input">
-                            <input type="text" id="domain" placeholder="https://<web_link>" class="domain-input">
+                            <input type="text" id="apiName" placeholder="API name" class="api-input">
+                            <input type="text" id="apiDomain" placeholder="https://<web_link>" class="domain-input">
                             <div class="tags">
                                 <div class="tag">
-                                    <select id="apitype" class="tag-select">
+                                    <select id="apiType" class="tag-select">
                                         <option value="REST">REST</option>
                                         <option value="RPC" disabled>RPC</option>
                                     </select>
@@ -84,9 +84,9 @@ export default {
         },
         async newAPI() {
             const API = {
-                apiname: document.getElementById("apiname").value,
-                domain: document.getElementById("domain").value,
-                apitype: document.getElementById("apitype").value
+                apiName: document.getElementById("apiName").value,
+                apiDomain: document.getElementById("apiDomain").value,
+                apiType: document.getElementById("apiType").value
             };
 
             const res = await wrapper(apiService.newAPI(API));
