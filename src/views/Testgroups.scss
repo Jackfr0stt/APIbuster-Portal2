@@ -32,10 +32,22 @@ a {
   width: max-content;
 }
 
+.test-cards-wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  padding: 2rem;
+  margin: 0 auto;
+  margin-top: 1em;
+  width: max-content;
+}
+
 .modal-wrapper {
   font-family: 'Heebo';
-  height: 80%;
-  width: 80%;
+  height: 90%;
+  width: 90%;
   font-size: 1.5em;
   // color: white;
   border-radius: 1em;
@@ -48,6 +60,31 @@ a {
   transition: all, var(--transition-time);
   position: relative;
   overflow: hidden;
+  border: 10px solid var(--dark-alt);
+  text-decoration: none;
+  overflow-y: scroll;
+}
+
+.card-modal-test {
+  font-family: 'Heebo';
+  --bg-filter-opacity: 0.5;
+  background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
+  height: 8em;
+  width: 40em;
+  font-size: 1.5em;
+  color: var(--dark-alt);
+  border-radius: 1em;
+  padding: 1em;
+  /*margin: 2em;*/
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5em -1em black;
+  transition: all, var(--transition-time);
+  position: relative;
+  overflow: hidden;
+  // border: 10px solid #ccc;
   border: 10px solid var(--dark-alt);
   text-decoration: none;
 }
@@ -116,9 +153,16 @@ a {
 }
 
 .card-testgroup h1 {
-  // margin: 0;
-  // font-size: 1.5em;
-  // line-height: 1.2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.5em;
+  padding: 0.6em;
+  line-height: 1.2em;
+  opacity: .8;
+}
+
+.card-modal-test h2 {
   position: absolute;
   top: 0;
   left: 0;
@@ -135,14 +179,34 @@ a {
   line-height: 2em;
 }
 
+.card-modal-test p {
+  font-size: 0.75em;
+  font-family: 'Open Sans';
+  margin-top: 0.5em;
+  line-height: 2em;
+}
+
 .card-testgroup .tags {
+  display: flex;
+}
+
+.card-modal-test .tags {
   display: flex;
 }
 
 .card-testgroup .tags .tag {
   font-size: 0.75em;
   background: rgba(255,255,255,0.5);
-  // background: var(--primary-alt);
+  border-radius: 0.3rem;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
+  line-height: 1.5em;
+  transition: all, var(--transition-time);
+}
+
+.card-modal-test .tags .tag {
+  font-size: 0.75em;
+  background: rgba(255,255,255,0.5);
   border-radius: 0.3rem;
   padding: 0 0.5em;
   margin-right: 0.5em;
@@ -384,6 +448,53 @@ input {
   width: 15%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.test-passes {
+  font-size: 1em;
+  color: var(--primary-alt);
+}
+
+.test-fails {
+  font-size: 1em;
+  color: red;
+}
+
+.test-pending {
+  font-size: 1em;
+  color: orange;
+}
+
+.passes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1em;
+}
+
+.fails {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1em;
+}
+
+.pending {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1em;
+}
+
+.test-tag {
+  color: var(--dark-alt);
+  font-size: 0.75em;
+  // opacity: 0.8;
+  border-radius: 0.3rem;
+  padding: 0 0.5em;
+  margin-left: 1.5em;
+  line-height: 1.5em;
+  transition: all, var(--transition-time);
 }
 
 /* MEDIA QUERIES */

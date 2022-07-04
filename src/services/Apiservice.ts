@@ -149,8 +149,8 @@ export default class ApiService {
     }
   }
 
-  async runTestgroup(testid: number) {
-    let route = `${API_URL}/test-groups/${testid}/run`;
+  async runTestgroup(groupId: number) {
+    let route = `${API_URL}/test-groups/${groupId}/run`;
 
     const response = await wrapper(
       axios.get(route)
@@ -275,6 +275,21 @@ export default class ApiService {
 
     const response = await wrapper(
       axios.delete(route)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
+  async getGroupLatestResults(id: number, filter?: any) {
+    const route = `${API_URL}/test-groups/${id}/latest-results`;
+
+    const response = await wrapper(
+      axios.get(route)
     );
 
     if (response.error) {

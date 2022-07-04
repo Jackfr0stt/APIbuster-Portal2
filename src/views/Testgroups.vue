@@ -9,15 +9,49 @@
 
         <section class="cards-wrapper">
             <div v-for="testgroup in testgroups">
+
                 <!-- The Modal -->
                 <div class="modal" :id="testgroup.id">
                     <!-- Modal content -->
                     <div class="modal-wrapper modal-content">
                         <span class="material-icons close" @click="ToggleTestgroupTests(testgroup.id)">cancel</span>
                         <!-- actual content -->
-                        <p>{{ testgroup }}</p>
+                        <div class="test-cards-wrapper">
+                            <div class="empty" v-if="results.length == 0">
+                                <p>No previously run tests.</p>
+                            </div>
+                            <div class="card-modal-test" v-for="result in results">
+                                <!-- <div class="modal-wrapper modal-content"> -->
+                                <div class="test-info">
+                                    <h2>{{ result.testName }}</h2>
+                                    <div class="pending" v-if="result.latestResult.result_typeId == 3">
+                                        {{ "PENDING: " + result.latestResult.resultDuration + " ms" }} <span
+                                            class="material-icons test-pending">help</span>
+                                        <div class="test-tag">{{ result.latestResult.resultDuration }}</div>
+                                    </div>
+                                    <div class="fails" v-if="result.latestResult.result_typeId == 2">
+                                        {{ "FAILS: " + result.latestResult.resultDuration + " ms" }}<span
+                                            class="material-icons test-fails">error</span>
+                                    </div>
+                                    <div class="passes" v-if="result.latestResult.result_typeId == 1">
+                                        {{ "PASSES: " + result.latestResult.resultDuration + " ms" }} <span
+                                            class="material-icons test-passes">check_circle</span>
+                                    </div>
+                                    <div class="content" v-if="result.latestResult.resultError != '{}'">
+                                        <p>{{ result.latestResult.resultError }}</p>
+                                    </div>
+                                    <div class="content" v-if="result.latestResult.resultError == '{}'">
+                                        <p>Test runs as expected.</p>
+                                    </div>
+                                </div>
+                                <div class="test-result">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="card-grid-space">
                     <a class="card-testgroup"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
@@ -32,7 +66,7 @@
                                 <span class="material-icons visibility" v-if="expandedTests == true"
                                     @click="ToggleTestgroupTests(testgroup.id)">visibility_off</span>
                                 <span class="material-icons play" @click="runTestgroup(testgroup.id)">play_arrow</span>
-                                <span class="material-icons delete" @click="runTestgroup(testgroup.id)">delete</span>
+                                <span class="material-icons delete" @click="delTestgroup(testgroup.id)">delete</span>
                             </div>
                         </div>
                     </a>
@@ -77,6 +111,7 @@ export default {
         return {
             method: this.created(),
             testgroups: [],
+            results: [],
             expanded: false,
             expandedTests: false
         };
@@ -102,7 +137,7 @@ export default {
         },
         async ToggleTestgroupTests(id) {
             this.expandedTests = !this.expandedTests;
-            this.expandCard(id);
+            await this.getLatestResults(id);
         },
         async newTestgroup() {
             const testgroup = {
@@ -119,7 +154,17 @@ export default {
             if (res.error) {
                 throw res.error;
             }
-            this.expandCard(id);
+            await this.getLatestResults(id);
+        },
+        async getLatestResults(id) {
+            await this.expandCard(id);
+
+            const res = await wrapper(apiService.getGroupLatestResults(id));
+            if (res.error) {
+                throw res.error;
+            }
+
+            this.results = res.data;
         },
         async expandCard(id) {
             const modal = document.getElementById(`${id}`);
@@ -133,6 +178,10 @@ export default {
             else if (modal.style.display = "none") {
                 modal.style.display = "block";
             }
+        },
+        async delTestgroup(id) {
+            const res = await wrapper(apiService.delTestgroup(id));
+            await location.reload();
         }
     },
     components: { Title }
@@ -187,5 +236,10 @@ export default {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.empty p {
+    font-size: 2em;
+    color: var(--dark-alt);
 }
 </style>
