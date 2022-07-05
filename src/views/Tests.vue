@@ -29,9 +29,9 @@
               </div>
               <div class="tags">
                 <div class="tag">{{ test.testType }}</div>
-                <button class="button" @click="runTest(test.id)">
-                  <span class="material-icons">play_arrow</span>
-                </button>
+                <span class="material-icons play-test" @click="runTest(test.id)">play_arrow</span>
+                <span class="material-icons update-test" @click="updateTest(test.id)">edit</span>
+                <span class="material-icons delete-test" @click="delMethod(method.id)">delete</span>
               </div>
             </div>
           </a>
@@ -135,6 +135,10 @@ export default {
     },
     async runTest(testid) {
       const res = await wrapper(apiService.runTest(testid));
+    },
+    async delTest(id) {
+      await wrapper(apiService.delTest(id));
+      location.reload();
     }
   },
   components: { Title }
@@ -143,4 +147,40 @@ export default {
 
 <style lang="scss">
 @import "Tests.scss";
+
+.delete-test {
+  position: absolute;
+  top: 4em;
+  right: 1em;
+  font-size: 1.25em;
+  margin: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.play-test {
+  position: absolute;
+  top: 0.75em;
+  right: 0.75em;
+  font-size: 1.5em;
+  margin: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.update-test {
+  position: absolute;
+  top: 2.5em;
+  right: 1em;
+  margin: none;
+  font-size: 1.25em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
 </style>

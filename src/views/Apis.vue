@@ -22,6 +22,8 @@
                                     <span class="text">Open</span>
                                 </router-link>
                             </div>
+                            <span class="material-icons update-api" @click="updateAPI(api.id)">edit</span>
+                            <span class="material-icons delete-api" @click="delAPI(api.id)">delete</span>
                         </div>
                     </a>
                 </div>
@@ -34,6 +36,9 @@
                         <div>
                             <input type="text" id="apiName" placeholder="API name" class="api-input">
                             <input type="text" id="apiDomain" placeholder="https://<web_link>" class="domain-input">
+                            <div class="tag" style="margin-bottom: 0.2em;">
+                                <input type="file" @change="uploadFile()" ref="file">
+                            </div>
                             <div class="tags">
                                 <div class="tag">
                                     <select id="apiType" class="tag-select">
@@ -71,6 +76,7 @@ export default {
     data() {
         return {
             apis: this.created(),
+            file: '',
             expanded: false,
         };
     },
@@ -91,7 +97,25 @@ export default {
 
             const res = await wrapper(apiService.newAPI(API));
             this.apis.push(res.data);
+
+            await this.submitFile(res.data.id);
+
             this.expanded = !this.expanded;
+        },
+        async uploadFile() {
+            this.file = this.$refs.file.files[0];
+        },
+        async submitFile(id) {
+            let formData = new FormData();
+            formData.append('file', this.file);
+
+            console.log(this.file);
+
+            await wrapper(apiService.sendFile(id, formData));
+        },
+        async delAPI(id) {
+            await wrapper(apiService.delAPI(id));
+            location.reload();
         }
     },
     components: { Title }
@@ -101,4 +125,28 @@ export default {
 
 <style lang="scss">
 @import "Apis.scss";
+
+.update-api {
+    position: absolute;
+    top: 0.75em;
+    right: 1em;
+    margin: none;
+    font-size: 1.25em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.delete-api {
+    position: absolute;
+    top: 2em;
+    right: 0.75em;
+    margin: none;
+    font-size: 1.5em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
 </style>

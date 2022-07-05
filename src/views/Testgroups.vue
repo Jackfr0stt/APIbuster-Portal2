@@ -66,6 +66,7 @@
                                 <span class="material-icons visibility" v-if="expandedTests == true"
                                     @click="ToggleTestgroupTests(testgroup.id)">visibility_off</span>
                                 <span class="material-icons play" @click="runTestgroup(testgroup.id)">play_arrow</span>
+                                <span class="material-icons update" @click="updateTestgroup(testgroup.id)">edit</span>
                                 <span class="material-icons delete" @click="delTestgroup(testgroup.id)">delete</span>
                             </div>
                         </div>

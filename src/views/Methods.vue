@@ -33,6 +33,8 @@
                                     <span class="text">Open</span>
                                 </router-link>
                             </div>
+                            <span class="material-icons update-method" @click="updateMethod(method.id)">edit</span>
+                            <span class="material-icons delete-method" @click="delMethod(method.id)">delete</span>
                         </div>
                     </a>
                 </div>
@@ -125,6 +127,10 @@ export default {
             const res = await wrapper(apiService.newMethod(method));
             this.methods.push(res.data);
             this.expanded = !this.expanded;
+        },
+        async delMethod(id) {
+            await wrapper(apiService.delMethod(id));
+            location.reload();
         }
     },
     components: { Title }
@@ -140,4 +146,28 @@ export default {
 
 <style lang="scss">
 @import "Methods.scss";
+
+.update-method {
+    position: absolute;
+    top: 0.75em;
+    right: 1em;
+    margin: none;
+    font-size: 1.25em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.delete-method {
+    position: absolute;
+    top: 2em;
+    right: 0.75em;
+    margin: none;
+    font-size: 1.5em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
 </style>

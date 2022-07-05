@@ -299,4 +299,24 @@ export default class ApiService {
       return response.data.data;
     }
   }
+
+  async sendFile(id: number, data: FormData) {
+    const route = `${API_URL}/apis/${id}/json`;
+
+    const response = await wrapper(axios.post(route,
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    ));
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
 }
