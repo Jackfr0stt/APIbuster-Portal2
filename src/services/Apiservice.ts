@@ -51,6 +51,21 @@ export default class ApiService {
     }
   }
 
+  async updateAPI(id: number, body: any) {
+    const route = `${API_URL}/apis/${id}`;
+
+    const response = await wrapper(
+      axios.patch(route, body)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
   async delAPI(id: number) {
     const route = `${API_URL}/apis/${id}`;
 

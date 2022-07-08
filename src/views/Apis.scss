@@ -56,6 +56,30 @@ a {
   text-decoration: none;
 }
 
+.card-update {
+  font-family: 'Heebo';
+  --bg-filter-opacity: 0.5;
+  background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
+  height: 10em;
+  width: 20em;
+  font-size: 1.5em;
+  color: white;
+  border-radius: 1em;
+  padding: 1em;
+  /*margin: 2em;*/
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5em -1em black;
+  transition: all, var(--transition-time);
+  position: relative;
+  overflow: hidden;
+  // border: 10px solid #ccc;
+  border: 10px solid var(--dark-alt);
+  text-decoration: none;
+}
+
 .card:hover {
   transform: rotate(0);
 }
@@ -131,6 +155,54 @@ a {
   }
 }
 
+.card-update .tags {
+  display: flex;
+}
+
+.card-update .tags .tag {
+  font-size: 0.75em;
+  background: rgba(255,255,255,0.5);
+  background: var(--color);
+  border-radius: 0.3rem;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
+  line-height: 1.5em;
+  transition: all, var(--transition-time);
+}
+
+.card-update .tags .tag .tag-select {
+  outline: none;
+  border: none;
+  background: var(--color);
+  color: white;
+  font-size: 1em;
+  background-color: transparent;
+}
+
+.card-update .tags .button {
+  position: absolute;
+  right: 0.75em;
+  margin-right: 0.5em;
+  color: var(--color);
+  transition: all, var(--transition-time);
+}
+
+.card-update .tags .text-button {
+  font-size: 1.75em;
+}
+
+.card-update .tags .submit {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &.card:hover {
+    color: var(--color);
+  }
+}
+
 ::placeholder {
   opacity: 0.8;
   color: white;
@@ -151,6 +223,7 @@ textarea {
   left: 0.5em;
   padding: 0.6em;
   line-height: 1.2em;
+  width: 80%;
   opacity: .8;
 
   outline: none;
@@ -162,6 +235,32 @@ textarea {
   
   // color: var(--light);
   transition: all, var(--transition-time);
+}
+
+.card-update .api-input {  
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  padding: 0.6em;
+  line-height: 1.2em;
+  width: 80%;
+  opacity: .8;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color);
+  background-color: transparent;
+  font-size: 1.25em;
+  font-weight: bold;
+  
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+  }
 }
 
 .card .domain-input {
@@ -178,6 +277,28 @@ textarea {
   
   // color: var(--light);
   transition: all, var(--transition-time);
+}
+
+.card-update .domain-input {
+  font-size: 0.75em;
+  font-family: 'Open Sans';
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  line-height: 2em;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color);
+  background-color: transparent;
+  
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+  }
 }
 
 .card .date {
