@@ -10,7 +10,7 @@
     <section class="test-cards-wrapper">
       <div v-for="test in tests">
         <div class="card-grid-space">
-          <a class="card-test"
+          <a class="card-test" v-if="!test.edit"
             style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
             <div>
               <h1>{{ test.testName }}</h1>
@@ -30,20 +30,46 @@
               <div class="tags">
                 <div class="tag">{{ test.testType }}</div>
                 <span class="material-icons play-test" @click="runTest(test.id)">play_arrow</span>
-                <span class="material-icons update-test" @click="updateTest(test.id)">edit</span>
-                <span class="material-icons delete-test" @click="delMethod(method.id)">delete</span>
+                <span class="material-icons update-test" @click="editTest(test.id)">edit</span>
+                <span class="material-icons delete-test" @click="delTest(test.id)">delete</span>
               </div>
             </div>
+          </a>
+          <a class="card-test-update" v-if="test.edit">
+            <div>
+              <input type="text" id="updatedTestName" :placeholder="test.testName" class="name-input">
+              <textarea type="text" id="updatedTestBody" :placeholder="test.testBody || '{\n   property: value\n}'"
+                class="body-input" />
+              <textarea type="text" id="updatedTestExpect" :placeholder="test.testExpect || '{\n   property: value\n}'"
+                class="expect-input" />
+              <div class="tags">
+                <div class="tag">
+                  <select id="updatedTestType" class="tag-select">
+                    <optgroup label="Functional">
+                      <option value="Acceptance">Acceptance</option>
+                      <option value="Integration">Integration</option>
+                      <option value="Unit">Unit</option>
+                    </optgroup>
+                    <optgroup label="Non-functional">
+                      <option value="Performance">Performance</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <span class="button" @click="updateTest(test)">Update</span>
+              </div>
+            </div>
+            <span class="material-icons cancel-update" @click="editTest(test.id)">cancel</span>
           </a>
         </div>
       </div>
 
       <div v-if="expanded">
         <div class="card-grid-space">
-          <a class="card-test"
-            style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
+          <a class="card-test-update">
             <div>
-              <input type="text" id="testname" placeholder="Test name" class="name-input">
+              <input type="text" id="testName" placeholder="Test name" class="name-input">
+              <textarea type="text" id="testBody" placeholder="Test body" class="body-input" />
+              <textarea type="text" id="testExpect" placeholder="Test expect" class="expect-input" />
               <div class="tags">
                 <div class="tag" style="background: var(--dark-alt);">
                   <select id="type" class="tag-select">
@@ -60,10 +86,9 @@
                 <button class="button" @click="newTest()">
                   <span class="text-button">Create</span>
                 </button>
-                <textarea type="text" id="body" placeholder="Test body" class="body-input" />
-                <textarea type="text" id="expect" placeholder="Test expect" class="expect-input" />
               </div>
             </div>
+            <span class="material-icons cancel-update" @click="ToggleTest()">cancel</span>
           </a>
         </div>
       </div>
@@ -109,6 +134,9 @@ export default {
 
       const tests = await wrapper(apiService.getTests(filter));
       this.tests = tests.data;
+      this.tests.forEach(test => {
+        test.edit = false;
+      });
     },
     async ToggleTest() {
       this.expanded = !this.expanded;
@@ -116,10 +144,10 @@ export default {
     async newTest() {
       const test = {
         test_groupId: this.testgroup.id,
-        testName: document.getElementById("testname").value,
-        testType: document.getElementById("type").value,
-        testBody: document.getElementById("body").value || "",
-        testExpect: document.getElementById("expect").value || "",
+        testName: document.getElementById("testName").value,
+        testType: document.getElementById("testType").value,
+        testBody: document.getElementById("testBody").value || "",
+        testExpect: document.getElementById("textExpect").value || "",
         discriminator: ''
       };
 
@@ -135,6 +163,43 @@ export default {
     },
     async runTest(testid) {
       const res = await wrapper(apiService.runTest(testid));
+    },
+    async editTest(id) {
+      await this.tests.forEach(test => {
+        if (test.id == id) {
+          test.edit = !test.edit;
+        }
+      });
+    },
+    async updateTest(test) {
+      const updateTest = {
+        testName: await document.getElementById("updatedTestName").value || test.testName,
+        testBody: await document.getElementById("updatedTestBody").value || test.testBody,
+        testExpect: await document.getElementById("updatedTestExpect").value || test.testExpect,
+        testType: await document.getElementById("updatedTestType").value || test.testType,
+      };
+
+      await this.tests.forEach(updated => {
+        if (updated.id == test.id) {
+          updated.edit = !updated.edit;
+        }
+      });
+
+      await wrapper(apiService.updateMethod(test.id, updateTest));
+      const updatedTest = await wrapper(apiService.getTestById(test.id));
+      if (updatedTest.error) {
+        throw updatedTest.error;
+      }
+
+      if (updatedTest.data) {
+        let count = 0;
+        for (let test of this.tests) {
+          if (test.id == updatedTest.data.id) {
+            this.tests[count] = updatedTest.data;
+          }
+          count++;
+        }
+      }
     },
     async delTest(id) {
       await wrapper(apiService.delTest(id));
@@ -178,6 +243,20 @@ export default {
   right: 1em;
   margin: none;
   font-size: 1.25em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cancel-update {
+  position: absolute;
+  opacity: 0.8;
+  top: 0.75em;
+  right: 1em;
+  margin: none;
+  font-size: 1.25em;
+  color: var(--color);
 
   &:hover {
     cursor: pointer;

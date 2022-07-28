@@ -210,11 +210,11 @@ a {
 }
 
 input {
-  color: white;
+  color: var(--color);
 }
 
 textarea {
-  color: white;
+  color: var(--color);
 }
 
 .card .api-input {  

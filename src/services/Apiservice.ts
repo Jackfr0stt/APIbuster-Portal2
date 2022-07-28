@@ -129,6 +129,21 @@ export default class ApiService {
     }
   }
 
+  async updateMethod(id: number, body: any) {
+    const route = `${API_URL}/methods/${id}`;
+
+    const response = await wrapper(
+      axios.patch(route, body)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
   async delMethod(id: number) {
     const route = `${API_URL}/methods/${id}`;
 
@@ -207,6 +222,21 @@ export default class ApiService {
     }
   }
 
+  async updateTestgroup(id: number, body: any) {
+    const route = `${API_URL}/test-groups/${id}`;
+
+    const response = await wrapper(
+      axios.patch(route, body)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
   async delTestgroup(id: number) {
     const route = `${API_URL}/test-groups/${id}`;
 
@@ -275,6 +305,21 @@ export default class ApiService {
 
     const response = await wrapper(
       axios.post(route, body)
+    );
+
+    if (response.error) {
+      throw response.error;
+    }
+    if (response.data) {
+      return response.data.data;
+    }
+  }
+
+  async updateTest(id: number, body: any) {
+    const route = `${API_URL}/tests/${id}`;
+
+    const response = await wrapper(
+      axios.patch(route, body)
     );
 
     if (response.error) {

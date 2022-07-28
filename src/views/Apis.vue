@@ -162,9 +162,6 @@ export default {
         async submitFile(id) {
             let formData = new FormData();
             formData.append('file', this.file);
-
-            console.log(this.file);
-
             await wrapper(apiService.sendFile(id, formData));
         },
         async delAPI(id) {

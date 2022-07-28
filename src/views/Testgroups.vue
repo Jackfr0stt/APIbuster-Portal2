@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="card-grid-space">
-                    <a class="card-testgroup"
+                    <a class="card-testgroup" v-if="!testgroup.edit"
                         style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
                         <div>
                             <h1>{{ testgroup.testGroupName }}</h1>
@@ -66,18 +66,29 @@
                                 <span class="material-icons visibility" v-if="expandedTests == true"
                                     @click="ToggleTestgroupTests(testgroup.id)">visibility_off</span>
                                 <span class="material-icons play" @click="runTestgroup(testgroup.id)">play_arrow</span>
-                                <span class="material-icons update" @click="updateTestgroup(testgroup.id)">edit</span>
+                                <span class="material-icons update" @click="editTestgroup(testgroup.id)">edit</span>
                                 <span class="material-icons delete" @click="delTestgroup(testgroup.id)">delete</span>
                             </div>
                         </div>
+                    </a>
+                    <a class="card-testgroup-update" v-if="testgroup.edit">
+                        <div>
+                            <input type="text" id="updatedTestgroupName" :placeholder="testgroup.testGroupName"
+                                class="name-input">
+                            <div class="tags" style="margin-bottom: 1em;">
+                                <button class="button" @click="updateTestgroup(testgroup)">
+                                    <span class="text-button">Update</span>
+                                </button>
+                            </div>
+                        </div>
+                        <span class="material-icons cancel-update" @click="editTestgroup(testgroup.id)">cancel</span>
                     </a>
                 </div>
             </div>
 
             <div v-if="expanded">
                 <div class="card-grid-space">
-                    <a class="card-testgroup"
-                        style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg')">
+                    <a class="card-testgroup-update">
                         <div>
                             <input type="text" id="groupName" placeholder="Test group name" class="name-input">
                             <div class="tags" style="margin-bottom: 1em;">
@@ -86,6 +97,7 @@
                                 </button>
                             </div>
                         </div>
+                        <span class="material-icons cancel-update" @click="ToggleTestgroup()">cancel</span>
                     </a>
                 </div>
             </div>
@@ -132,6 +144,9 @@ export default {
             }
             const testgroups = await wrapper(apiService.getTestgroups(filter));
             this.testgroups = testgroups.data;
+            this.testgroups.forEach(testgroup => {
+                testgroup.edit = false;
+            });
         },
         async ToggleTestgroup() {
             this.expanded = !this.expanded;
@@ -178,6 +193,40 @@ export default {
             // When the user clicks on <span> (x), close the modal
             else if (modal.style.display = "none") {
                 modal.style.display = "block";
+            }
+        },
+        async editTestgroup(id) {
+            await this.testgroups.forEach(testgroup => {
+                if (testgroup.id == id) {
+                    testgroup.edit = !testgroup.edit;
+                }
+            });
+        },
+        async updateTestgroup(testgroup) {
+            const updateTestgroup = {
+                testGroupName: await document.getElementById("updatedTestgroupName").value || method.methodName,
+            };
+
+            await this.testgroups.forEach(updated => {
+                if (updated.id == testgroup.id) {
+                    updated.edit = !updated.edit;
+                }
+            });
+
+            await wrapper(apiService.updateTestgroup(testgroup.id, updateTestgroup));
+            const updatedTestgroup = await wrapper(apiService.getTestgroupById(testgroup.id));
+            if (updatedTestgroup.error) {
+                throw updatedTestgroup.error;
+            }
+
+            if (updatedTestgroup.data) {
+                let count = 0;
+                for (let testgroup of this.testgroups) {
+                    if (testgroup.id == updatedTestgroup.data.id) {
+                        this.testgroups[count] = updatedTestgroup.data;
+                    }
+                    count++;
+                }
             }
         },
         async delTestgroup(id) {
@@ -242,5 +291,43 @@ export default {
 .empty p {
     font-size: 2em;
     color: var(--dark-alt);
+}
+
+.update-testgroup {
+    position: absolute;
+    top: 0.75em;
+    right: 1em;
+    margin: none;
+    font-size: 1.25em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.cancel-update {
+    position: absolute;
+    opacity: 0.8;
+    top: 0.75em;
+    right: 1em;
+    margin: none;
+    font-size: 1.25em;
+    color: var(--color);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.delete-testgroup {
+    position: absolute;
+    top: 2em;
+    right: 0.75em;
+    margin: none;
+    font-size: 1.5em;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 </style>

@@ -56,6 +56,34 @@ a {
   text-decoration: none;
 }
 
+.card-method-update {
+  font-family: 'Heebo';
+  --bg-filter-opacity: 0.5;
+  background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
+  height: 15em;
+  width: 30em;
+  font-size: 1.5em;
+  color: white;
+  border-radius: 1em;
+  padding: 1em;
+  /*margin: 2em;*/
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5em -1em black;
+  transition: all, var(--transition-time);
+  position: relative;
+  overflow: hidden;
+  // border: 10px solid #ccc;
+  border: 10px solid var(--dark-alt);
+  text-decoration: none;
+}
+
+.card-method-update .text-button {
+  color: var(--color);
+}
+
 .card-method:hover {
   transform: rotate(0);
 }
@@ -138,6 +166,54 @@ a {
   }
 }
 
+.card-method-update .tags {
+  display: flex;
+}
+
+.card-method-update .tags .tag {
+  font-size: 0.75em;
+  background: rgba(255,255,255,0.5);
+  background: var(--color);
+  border-radius: 0.3rem;
+  padding: 0 0.5em;
+  margin-right: 0.5em;
+  line-height: 1.5em;
+  transition: all, var(--transition-time);
+}
+
+.card-method-update .tags .tag .tag-select {
+  outline: none;
+  border: none;
+  background: var(--color);
+  color: white;
+  font-size: 1em;
+  background-color: transparent;
+}
+
+.card-method-update .tags .button {
+  position: absolute;
+  right: 0.75em;
+  margin-right: 0.5em;
+  color: var(--color);
+  transition: all, var(--transition-time);
+}
+
+.card-method-update .tags .text-button {
+  font-size: 1.75em;
+}
+
+.card-method-update .tags .submit {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &.card:hover {
+    color: var(--color);
+  }
+}
+
 ::placeholder {
   opacity: 0.8;
   color: white;
@@ -153,6 +229,7 @@ input {
   left: 0.5em;
   padding: 0.6em;
   line-height: 1.2em;
+  width: 80%;
   opacity: .8;
 
   outline: none;
@@ -163,6 +240,32 @@ input {
   font-weight: bold;
   
   transition: all, var(--transition-time);
+}
+
+.card-method-update .method-input {  
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  padding: 0.6em;
+  line-height: 1.2em;
+  width: 80%;
+  opacity: .8;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color);
+  background-color: transparent;
+  font-size: 1.25em;
+  font-weight: bold;
+  
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+  }
 }
 
 .card-method .methodBody-input {  
@@ -183,6 +286,28 @@ input {
   font-weight: bold;
   
   transition: all, var(--transition-time);
+}
+
+.card-method-update .methodBody-input {
+  font-size: 0.75em;
+  font-family: 'Open Sans';
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  line-height: 2em;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color);
+  background-color: transparent;
+  
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+  }
 }
 
 .card-method .methodHeader-input {  
@@ -206,7 +331,29 @@ input {
   transition: all, var(--transition-time);
 }
 
-.card-method .domain-input {
+.card-method-update .methodHeader-input {
+  font-size: 0.75em;
+  font-family: 'Open Sans';
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  line-height: 2em;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color);
+  background-color: transparent;
+  
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+  }
+}
+
+.card-method .methodRoute-input {
   font-size: 0.75em;
   font-family: 'Open Sans';
   margin-top: 0.5em;
@@ -220,6 +367,28 @@ input {
   
   // color: var(--light);
   transition: all, var(--transition-time);
+}
+
+.card-method-update .methodRoute-input {
+  font-size: 0.75em;
+  font-family: 'Open Sans';
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  line-height: 2em;
+
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color);
+  background-color: transparent;
+  
+  color: var(--color);
+  transition: all, var(--transition-time);
+
+  &::placeholder {
+    opacity: 0.8;
+    color: var(--color);
+    transition: all, var(--transition-time);
+  }
 }
 
 .card-method .date {
