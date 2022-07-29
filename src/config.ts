@@ -1,2 +1,2 @@
-export const HOSTNAME = "http://apibuster-service";
-export const API_URL = "http://apibuster-service:8080";
+export const HOSTNAME = "https://apibuster-service";
+export const API_URL = "https://moodbuster2-staging.inesctec.pt/";

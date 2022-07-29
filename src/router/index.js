@@ -10,7 +10,8 @@ import Testgroups from '../views/Testgroups.vue';
 import Tests from '../views/Tests.vue';
 
 const router = createRouter({
-    history: createWebHistory(),
+    linkActiveClass: 'router-active',
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: [{
             path: "/",
             component: Home
