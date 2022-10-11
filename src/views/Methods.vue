@@ -1,6 +1,6 @@
 <template>
     <main class="method-page">
-        <Title :title="api.apiname" />
+        <Title :title="api.apiName" />
 
 
         <!-- API CARDS -->

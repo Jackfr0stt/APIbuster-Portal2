@@ -18,7 +18,7 @@
       </router-link>
       <router-link class="button" to="/apis">
         <span class="material-icons">api</span>
-        <span class="text">APIs</span>
+        <span class="text">API</span>
       </router-link>
     </div>
 

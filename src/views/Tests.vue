@@ -72,7 +72,7 @@
               <textarea type="text" id="testExpect" placeholder="Test expect" class="expect-input" />
               <div class="tags">
                 <div class="tag" style="background: var(--dark-alt);">
-                  <select id="type" class="tag-select">
+                  <select id="testType" class="tag-select">
                     <optgroup label="Functional">
                       <option value="Acceptance">Acceptance</option>
                       <option value="Integration">Integration</option>
@@ -147,7 +147,7 @@ export default {
         testName: document.getElementById("testName").value,
         testType: document.getElementById("testType").value,
         testBody: document.getElementById("testBody").value || "",
-        testExpect: document.getElementById("textExpect").value || "",
+        testExpect: document.getElementById("testExpect").value || "",
         discriminator: ''
       };
 
@@ -185,7 +185,7 @@ export default {
         }
       });
 
-      await wrapper(apiService.updateMethod(test.id, updateTest));
+      await wrapper(apiService.updateTest(test.id, updateTest));
       const updatedTest = await wrapper(apiService.getTestById(test.id));
       if (updatedTest.error) {
         throw updatedTest.error;
