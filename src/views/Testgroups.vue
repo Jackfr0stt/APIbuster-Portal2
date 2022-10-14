@@ -170,15 +170,18 @@ export default {
             if (res.error) {
                 throw res.error;
             }
-            await this.getLatestResults(id);
-        },
-        async getLatestResults(id) {
+
             await this.expandCard(id);
 
+            this.results = res.data;
+        },
+        async getLatestResults(id) {
             const res = await wrapper(apiService.getGroupLatestResults(id));
             if (res.error) {
                 throw res.error;
             }
+            
+            await this.expandCard(id);
 
             this.results = res.data;
         },
