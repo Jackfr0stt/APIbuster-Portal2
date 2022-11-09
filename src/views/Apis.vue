@@ -1,6 +1,6 @@
 <template>
   <main class="API-page">
-    <Title title="APIs" />
+    <Title title="API" />
 
     <!-- API CARDS -->
     <section class="info">
